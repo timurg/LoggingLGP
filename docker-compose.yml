@@ -6,7 +6,7 @@ services:
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - ./loki-config.yaml:/etc/loki/local-config.yaml
+      - ${PWD}/loki-config.yaml:/etc/loki/local-config.yaml
       - loki-data:/loki  # Единый том для всех данных
     deploy:
       resources:
@@ -42,7 +42,7 @@ services:
       - "24224:24224"
       - "24224:24224/udp"
     volumes:
-      - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - ${PWD}/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
     deploy:
       resources:
         limits:

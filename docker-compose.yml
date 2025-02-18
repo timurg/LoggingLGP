@@ -2,9 +2,9 @@ services:
   loki:
     image: grafana/loki:3.4
     container_name: loki
-    command: -config.file=/etc/loki/config/loki-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - loki-config:/etc/loki/config/
+      - loki-etc:/etc/loki
       - loki-data:/loki  # Единый том для всех данных
     deploy:
       resources:
@@ -54,7 +54,7 @@ services:
 volumes:
   grafana-storage:
   fluent-bit-etc:
-  loki-config:
+  loki-etc:
   loki-data:  # Единый том для всех данных
 
 networks:

@@ -4,14 +4,10 @@ services:
   loki:
     image: grafana/loki:3.4
     container_name: loki
-    ports:
-      - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
       - ./loki-config.yaml:/etc/loki/local-config.yaml
-      - /usr/share/loki/active/index:/var/lib/loki/active/index
-      - /usr/share/loki/cache:/var/lib/loki/cache
-      - /usr/share/loki/working:/var/lib/loki/working
+      - loki-data:/loki  # Единый том для всех данных
     deploy:
       resources:
         limits:
@@ -47,7 +43,6 @@ services:
       - "24224:24224/udp"
     volumes:
       - ./fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
-      - ./generate_labels.lua:/fluent-bit/etc/generate_labels.lua
     deploy:
       resources:
         limits:
@@ -60,9 +55,7 @@ services:
 
 volumes:
   grafana-storage:
-  loki-active-index:
-  loki-cache:
-  loki-working:
+  loki-data:  # Единый том для всех данных
 
 networks:
   proznanie_net:

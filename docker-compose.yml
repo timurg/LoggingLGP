@@ -4,7 +4,7 @@ services:
     container_name: loki
     command: -config.file=/etc/loki/config/loki-config.yaml
     volumes:
-      - ${PWD}/loki-config:/etc/loki/config/
+      - loki-config:/etc/loki/config/
       - loki-data:/loki  # Единый том для всех данных
     deploy:
       resources:

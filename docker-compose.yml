@@ -4,7 +4,7 @@ services:
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
     volumes:
-      - loki-etc:/etc/loki
+      - ./loki-etc:/etc/loki
       - loki-data:/loki  # Единый том для всех данных
     deploy:
       resources:
@@ -36,11 +36,12 @@ services:
   fluent-bit:
     image: fluent/fluent-bit:3.2.6
     container_name: fluent-bit
+    command: ["-c", "/fluent-bit/config/local.conf"]
     ports:
       - "24224:24224"
       - "24224:24224/udp"
     volumes:
-      - fluent-bit-etc:/fluent-bit/etc/
+      - ./fluent-config:/fluent-bit/config
     deploy:
       resources:
         limits:
@@ -53,7 +54,7 @@ services:
 
 volumes:
   grafana-storage:
-  fluent-bit-etc:
+  fluent-config:
   loki-etc:
   loki-data:  # Единый том для всех данных
 

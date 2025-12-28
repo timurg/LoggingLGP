@@ -13,6 +13,7 @@ services:
           memory: 1G
     networks:
       - proznanie_net
+    restart: unless-stopped
 
   grafana:
     image: grafana/grafana:11.5.1-ubuntu
@@ -32,6 +33,7 @@ services:
       - proznanie_net
     depends_on:
       - loki
+    restart: unless-stopped
 
   fluent-bit:
     image: fluent/fluent-bit:3.2.6
@@ -51,6 +53,7 @@ services:
       - proznanie_net
     depends_on:
       - loki
+    restart: unless-stopped
 
 volumes:
   grafana-storage:
